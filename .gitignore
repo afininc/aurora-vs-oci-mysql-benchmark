@@ -21,4 +21,7 @@ __pycache__/
 .DS_Store
 
 # Sisyphus
-.sisyphus/evidence/
+.sisyphus/
+
+# Ruff
+.ruff_cache/

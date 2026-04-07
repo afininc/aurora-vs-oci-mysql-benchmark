@@ -8,7 +8,7 @@
 
 April, 2026. Ryan Kwon @ A-FIN I&C Corp.
 
-![종합 대시보드](charts/summary_dashboard.png)
+![종합 대시보드](reports/charts/summary_dashboard.png)
 
 ## 2. 테스트 환경
 
@@ -64,9 +64,9 @@ April, 2026. Ryan Kwon @ A-FIN I&C Corp.
 
 *OCI 4096t는 LuaJIT 메모리 부족으로 incomplete (20초 분량 partial data 존재)
 
-![OLTP TPS vs Thread Count](charts/tps_vs_threads.png)
+![OLTP TPS vs Thread Count](reports/charts/tps_vs_threads.png)
 
-![P50/P95/P99 레이턴시 비교](charts/latency_percentiles.png)
+![P50/P95/P99 레이턴시 비교](reports/charts/latency_percentiles.png)
 
 **분석**:
 
@@ -76,9 +76,9 @@ April, 2026. Ryan Kwon @ A-FIN I&C Corp.
 - Aurora는 256t에서 TPS 피크(3,975)에 도달한 후 완만하게 하락하는 반면, OCI는 512t에서 피크(6,343)를 찍고 역시 완만하게 하락한다.
 - P95 레이턴시는 저스레드에서 OCI가 우세하나, 고스레드(1024t+)에서는 Aurora가 더 낮은 P95를 보인다.
 
-![2048t TPS 시계열 (스파이크 구간)](charts/tps_timeseries_spike.png)
+![2048t TPS 시계열 (스파이크 구간)](reports/charts/tps_timeseries_spike.png)
 
-![에러율 비교](charts/error_rate.png)
+![에러율 비교](reports/charts/error_rate.png)
 
 ### 3.2 Ticketing Workload (커스텀 Lua)
 
@@ -93,9 +93,9 @@ April, 2026. Ryan Kwon @ A-FIN I&C Corp.
 | 2048 | 5,297 | 6,832 | +29% | 404.61 ms | 450.77 ms |
 | 4096 | 5,307 | N/A | — | 816.63 ms | N/A |
 
-![티켓팅 워크로드 TPS](charts/ticketing_tps.png)
+![티켓팅 워크로드 TPS](reports/charts/ticketing_tps.png)
 
-![티켓팅 P95 레이턴시](charts/ticketing_latency.png)
+![티켓팅 P95 레이턴시](reports/charts/ticketing_latency.png)
 
 **분석**:
 
@@ -129,7 +129,7 @@ April, 2026. Ryan Kwon @ A-FIN I&C Corp.
 | 128 | 107,941 | 81,455 | 251,079 | 189,243 |
 | 256 | 108,328 | 80,431 | 251,533 | 186,921 |
 
-![HammerDB TPC-C NOPM](charts/hammerdb_nopm.png)
+![HammerDB TPC-C NOPM](reports/charts/hammerdb_nopm.png)
 
 **분석**:
 
