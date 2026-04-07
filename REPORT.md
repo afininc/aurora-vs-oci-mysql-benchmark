@@ -68,8 +68,6 @@ April, 2026. Ryan Kwon @ A-FIN I&C Corp.
 
 ![P50/P95/P99 레이턴시 비교](reports/charts/latency_percentiles.png)
 
-**분석**:
-
 - OCI MDS가 전 구간에서 Aurora 대비 높은 TPS를 기록했다.
 - 저스레드(32\~64t)에서 OCI 우위가 가장 크다 (+100\~134%). 이는 OCI의 thread pool이 적은 스레드에서도 효율적으로 작업을 분배하기 때문이다.
 - 고스레드(1024\~2048t)에서 격차가 줄어든다 (+20\~43%). Aurora의 one-thread-per-connection 모델이 고스레드에서 상대적으로 선방한다.
@@ -97,8 +95,6 @@ April, 2026. Ryan Kwon @ A-FIN I&C Corp.
 
 ![티켓팅 P95 레이턴시](reports/charts/ticketing_latency.png)
 
-**분석**:
-
 - 티켓팅 워크로드에서도 OCI가 전 구간 우세하다.
 - Aurora는 놀라울 정도로 안정적인 TPS(\~5,300)를 유지한다 — 32t부터 4096t까지 거의 변동이 없다.
 - OCI는 저스레드에서 압도적(32t: 12,128 TPS)이나 스레드 증가에 따라 점진적으로 하락한다.
@@ -111,8 +107,6 @@ April, 2026. Ryan Kwon @ A-FIN I&C Corp.
 |------|---------------------|-------------------|
 | Total TPS | 434.3 | 1,345.9 |
 | P95 Latency | 46,103.52 ms | 1,739.68 ms |
-
-**분석**:
 
 - Pareto 분포(핫스팟 집중)에서 Aurora의 성능이 급격히 저하된다 (TPS 434, P95 46초).
 - OCI는 thread pool 덕분에 핫스팟 경합 상황에서도 안정적인 성능을 유지한다 (TPS 1,346, P95 1.7초).
@@ -130,8 +124,6 @@ April, 2026. Ryan Kwon @ A-FIN I&C Corp.
 | 256 | 108,328 | 80,431 | 251,533 | 186,921 |
 
 ![HammerDB TPC-C NOPM](reports/charts/hammerdb_nopm.png)
-
-**분석**:
 
 - TPC-C에서는 흥미로운 크로스오버가 발생한다.
 - 저VU(8\~32): OCI가 압도적 우세 (8VU: 54K vs 19K NOPM, +181%).
