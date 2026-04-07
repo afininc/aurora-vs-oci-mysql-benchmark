@@ -39,8 +39,8 @@ Aurora MySQL은 자체 Adaptive 커넥션 관리를 제공하지만 `thread_pool
 │  │                                                          │  │
 │  │  ┌─────────────────────┐    ┌────────────────────────┐  │  │
 │  │  │  Compute Client      │    │  MySQL MDS             │  │  │
-│  │  │  VM.Standard.E4.Flex │───>│  8 OCPU Shape          │  │  │
-│  │  │  (16 OCPU, 64GB)     │    │  (16 vCPU, 128GB)      │  │  │
+│  │  │  VM.Standard.E4.Flex │───>│  MySQL.16 (ECPU)       │  │  │
+│  │  │  (16 OCPU, 32GB)     │    │  (16 ECPU, 128GB)      │  │  │
 │  │  │                      │    │  Enterprise Thread Pool │  │  │
 │  │  │  sysbench / HammerDB │    │  thread_pool_max_trx=512│  │  │
 │  │  └─────────────────────┘    └────────────────────────┘  │  │
@@ -62,8 +62,8 @@ Aurora MySQL은 자체 Adaptive 커넥션 관리를 제공하지만 `thread_pool
 
 | 항목 | Aurora MySQL | OCI MySQL MDS |
 |------|-------------|---------------|
-| 인스턴스 | db.r6g.4xlarge | 8 OCPU Shape |
-| vCPU | 16 | 16 (8 OCPU x 2) |
+| 인스턴스 | db.r6g.4xlarge | MySQL.16 (ECPU) |
+| vCPU | 16 | 16 ECPU |
 | 메모리 | 128GB | 128GB |
 | max_connections | 5000 | 5000 |
 | innodb_buffer_pool_size | ~96GB | 96GB |
@@ -87,6 +87,7 @@ Aurora MySQL은 자체 Adaptive 커넥션 관리를 제공하지만 `thread_pool
 │   │   ├── aurora.tf
 │   │   ├── parameter_groups.tf
 │   │   ├── ec2_client.tf
+│   │   ├── ssh_key.tf
 │   │   ├── data.tf
 │   │   ├── outputs.tf
 │   │   └── terraform.tfvars.example
@@ -98,6 +99,7 @@ Aurora MySQL은 자체 Adaptive 커넥션 관리를 제공하지만 `thread_pool
 │       ├── mysql.tf
 │       ├── mysql_config.tf
 │       ├── compute_client.tf
+│       ├── ssh_key.tf
 │       ├── data.tf
 │       ├── outputs.tf
 │       └── terraform.tfvars.example
@@ -117,6 +119,10 @@ Aurora MySQL은 자체 Adaptive 커넥션 관리를 제공하지만 `thread_pool
 │   │   └── requirements.txt
 │   ├── run_benchmark.sh             # 마스터 오케스트레이터
 │   └── os_tuning.sh                 # 클라이언트 VM OS 튜닝
+├── reports/
+│   ├── benchmark_report.md          # 벤치마크 결과 보고서
+│   └── charts/                      # 시각화 차트 (PNG)
+├── REPORT.md                        # 루트 보고서 (차트 포함)
 └── README.md
 ```
 
