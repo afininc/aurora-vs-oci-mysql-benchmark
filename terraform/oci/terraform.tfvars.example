@@ -1,0 +1,12 @@
+tenancy_ocid     = "ocid1.tenancy.oc1..example"
+user_ocid        = "ocid1.user.oc1..example"
+fingerprint      = "aa:bb:cc:dd:ee:ff:00:11:22:33:44:55:66:77:88:99"
+private_key_path = ".keys/your-key.pem"
+region           = "ap-seoul-1"
+compartment_id   = "ocid1.compartment.oc1..example"
+
+vcn_cidr         = "10.1.0.0/16"
+allowed_ssh_cidr = "0.0.0.0/0"
+
+db_admin_password = "YourSecurePassword123!"
+ssh_public_key    = "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQC... your-key-comment"

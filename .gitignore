@@ -1,0 +1,24 @@
+# Credentials & keys
+.keys/
+*.tfvars
+!*.tfvars.example
+
+# Terraform
+.terraform/
+*.tfstate
+*.tfstate.backup
+.terraform.lock.hcl
+
+# Benchmark results (raw logs are large)
+results/
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+
+# OS
+.DS_Store
+
+# Sisyphus
+.sisyphus/evidence/
