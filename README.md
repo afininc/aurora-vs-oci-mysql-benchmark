@@ -52,7 +52,7 @@ Aurora MySQL은 자체 Adaptive 커넥션 관리를 제공하지만 `thread_pool
     └── sysbench / HammerDB
           ├── 준비 단계: 스키마 생성 + 데이터 로드
           ├── 워밍업: 정상 부하 (64 threads, 5분)
-          ├── 스파이크: 급격한 커넥션 증가 (512~2000 threads)
+          ├── 스파이크: 급격한 커넥션 증가 (512\~2000 threads)
           └── 회복: 부하 감소 후 안정화 측정
 ```
 
@@ -66,7 +66,7 @@ Aurora MySQL은 자체 Adaptive 커넥션 관리를 제공하지만 `thread_pool
 | vCPU | 16 | 16 ECPU |
 | 메모리 | 128GB | 128GB |
 | max_connections | 5000 | 5000 |
-| innodb_buffer_pool_size | ~96GB | 96GB |
+| innodb_buffer_pool_size | \~96GB | 96GB |
 | Thread Pool | Aurora Adaptive (제한적) | Enterprise Thread Pool |
 | thread_pool_max_transactions_limit | 미지원 | 512 |
 | 스토리지 | Aurora Distributed (자동 확장) | Block Volume |
@@ -279,7 +279,7 @@ terraform destroy
 | 파라미터 | Aurora MySQL | OCI MySQL MDS | 비고 |
 |---------|-------------|---------------|------|
 | max_connections | 5000 | 5000 | 동일 |
-| innodb_buffer_pool_size | ~96GB (자동) | 96GB | 메모리의 75% |
+| innodb_buffer_pool_size | \~96GB (자동) | 96GB | 메모리의 75% |
 | innodb_io_capacity | 2000 | 2000 | |
 | innodb_io_capacity_max | 4000 | 4000 | |
 | innodb_flush_log_at_trx_commit | 1 | 1 | ACID 보장 |

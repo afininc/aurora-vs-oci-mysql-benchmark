@@ -30,7 +30,7 @@ April, 2026. Ryan Kwon @ A-FIN I&C Corp.
 | max_connections | 5000 | 5000 |
 | thread_handling | one-thread-per-connection | pool-of-threads |
 | thread_pool_max_transactions_limit | 미지원 | 512 |
-| innodb_buffer_pool_size | ~96 GB (자동) | 96 GB |
+| innodb_buffer_pool_size | \~96 GB (자동) | 96 GB |
 
 ### 2.3 클라이언트 VM
 
@@ -45,7 +45,7 @@ April, 2026. Ryan Kwon @ A-FIN I&C Corp.
 
 - sysbench: `--tables=10 --table-size=1000000 --duration=30 --warmup=15 --runs=1 --db-ps-mode=disable`
 - Thread 레벨: 32, 64, 128, 256, 512, 1024, 2048, 4096
-- HammerDB: TPC-C, 10 warehouses, rampup 1분, duration 5분, VU: 8~256
+- HammerDB: TPC-C, 10 warehouses, rampup 1분, duration 5분, VU: 8\~256
 
 ## 3. 결과
 
@@ -71,8 +71,8 @@ April, 2026. Ryan Kwon @ A-FIN I&C Corp.
 **분석**:
 
 - OCI MDS가 전 구간에서 Aurora 대비 높은 TPS를 기록했다.
-- 저스레드(32~64t)에서 OCI 우위가 가장 크다 (+100~134%). 이는 OCI의 thread pool이 적은 스레드에서도 효율적으로 작업을 분배하기 때문이다.
-- 고스레드(1024~2048t)에서 격차가 줄어든다 (+20~43%). Aurora의 one-thread-per-connection 모델이 고스레드에서 상대적으로 선방한다.
+- 저스레드(32\~64t)에서 OCI 우위가 가장 크다 (+100\~134%). 이는 OCI의 thread pool이 적은 스레드에서도 효율적으로 작업을 분배하기 때문이다.
+- 고스레드(1024\~2048t)에서 격차가 줄어든다 (+20\~43%). Aurora의 one-thread-per-connection 모델이 고스레드에서 상대적으로 선방한다.
 - Aurora는 256t에서 TPS 피크(3,975)에 도달한 후 완만하게 하락하는 반면, OCI는 512t에서 피크(6,343)를 찍고 역시 완만하게 하락한다.
 - P95 레이턴시는 저스레드에서 OCI가 우세하나, 고스레드(1024t+)에서는 Aurora가 더 낮은 P95를 보인다.
 
@@ -100,7 +100,7 @@ April, 2026. Ryan Kwon @ A-FIN I&C Corp.
 **분석**:
 
 - 티켓팅 워크로드에서도 OCI가 전 구간 우세하다.
-- Aurora는 놀라울 정도로 안정적인 TPS(~5,300)를 유지한다 — 32t부터 4096t까지 거의 변동이 없다.
+- Aurora는 놀라울 정도로 안정적인 TPS(\~5,300)를 유지한다 — 32t부터 4096t까지 거의 변동이 없다.
 - OCI는 저스레드에서 압도적(32t: 12,128 TPS)이나 스레드 증가에 따라 점진적으로 하락한다.
 - 이는 OCI thread pool의 `thread_pool_max_transactions_limit=512`가 동시 트랜잭션을 제한하여 고스레드에서 큐잉이 발생하기 때문이다.
 - 그러나 큐잉에도 불구하고 OCI의 TPS가 Aurora보다 높다는 점이 핵심이다.
@@ -134,9 +134,9 @@ April, 2026. Ryan Kwon @ A-FIN I&C Corp.
 **분석**:
 
 - TPC-C에서는 흥미로운 크로스오버가 발생한다.
-- 저VU(8~32): OCI가 압도적 우세 (8VU: 54K vs 19K NOPM, +181%).
-- 고VU(64~256): Aurora가 역전 (128VU: 108K vs 81K NOPM, +33%).
-- OCI는 32VU에서 ~80K NOPM에 도달한 후 플래토 — `thread_pool_max_transactions_limit=512`가 동시 트랜잭션을 제한하여 추가 VU가 큐잉된다.
+- 저VU(8\~32): OCI가 압도적 우세 (8VU: 54K vs 19K NOPM, +181%).
+- 고VU(64\~256): Aurora가 역전 (128VU: 108K vs 81K NOPM, +33%).
+- OCI는 32VU에서 \~80K NOPM에 도달한 후 플래토 — `thread_pool_max_transactions_limit=512`가 동시 트랜잭션을 제한하여 추가 VU가 큐잉된다.
 - Aurora는 VU 증가에 따라 선형적으로 스케일업하여 64VU에서 OCI를 추월한다.
 - 이는 TPC-C의 특성(짧은 트랜잭션, 높은 동시성)에서 Aurora의 one-thread-per-connection 모델이 thread pool 오버헤드 없이 직접 처리하는 것이 유리할 수 있음을 시사한다.
 
@@ -146,7 +146,7 @@ April, 2026. Ryan Kwon @ A-FIN I&C Corp.
 
 **결론: 부분적으로 지지됨**
 
-1. **sysbench OLTP/Ticketing**: OCI가 전 구간에서 우세. 특히 저~중스레드에서 큰 격차. 고스레드에서도 TPS cliff 없이 완만한 하락. **가설 지지.**
+1. **sysbench OLTP/Ticketing**: OCI가 전 구간에서 우세. 특히 저\~중스레드에서 큰 격차. 고스레드에서도 TPS cliff 없이 완만한 하락. **가설 지지.**
 
 2. **Pareto 핫스팟**: OCI가 압도적 우세. Aurora는 P95 46초까지 치솟는 반면 OCI는 1.7초. **가설 강하게 지지.**
 
